@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BookStore.Domain.Entities.Book>
+
+@{
+    ViewBag.Title = "Admin: All Books";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Admin Index</h2>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>All Books</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-condensed table-striped table-bordered">
+            <tr>
+                <th class="text-right">
+                    ID
+                </th>
+                <th>
+                    Title
+                </th>
+                <th  class="text-right">
+                    Price
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-right">
+                        @Html.ActionLink(item.ISBN.ToString(), "Edit", new { isbn = item.ISBN })
+                    </td>
+                    <td>
+                        @Html.ActionLink(item.title, "Edit", new { isbn = item.ISBN })
+                    </td>
+                    <td class="text-right">
+                        @item.Price.ToString("c")
+                    </td>
+                    <td>
+                        @item.Specialization
+                    </td>
+                    <td class="text-center">
+                        @Html.ActionLink("Delete", "Delete", new { isbn = item.ISBN }, new { @class = "btn btn-danger btn-xs"})
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+   <div class="panel-footer">
+        @Html.ActionLink("Add new Book", "Create", null, new {@class = "btn btn-default" })
+        @Html.ActionLink("Back To Home", "List", "Book", null, new { @class = "btn btn-default" })
+    </div>
+
+</div>
